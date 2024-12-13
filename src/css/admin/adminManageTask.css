@@ -1,3 +1,22 @@
+/*Scroll css add final*/
+
+.tasks-table-container {
+  max-height: 400px; /* Adjust height as needed */
+  overflow-y: auto;
+  border: 1px solid #ddd;
+}
+
+.tasks-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tasks-table th, .tasks-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
 /* Main container styling */
 .manage-tasks-container {
   padding: 20px;
