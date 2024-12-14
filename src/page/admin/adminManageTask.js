@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import "../../css/admin/adminManageTask.css";
 
@@ -17,17 +18,34 @@ const AdminManageTask = () => {
     };
 
     const navigate = useNavigate();
+    const [tasks, setTasks] = useState([]);
 
-    const sampleTasks = [
-        { id: "001", employerId: "0001", name: "Car Service System", description: "A platform that streamlines vehicle maintenance...", deadline: "12/3/2024" },
-        { id: "002", employerId: "0002", name: "Library App", description: "A digital platform for managing books and tracking...", deadline: "12/3/2024" },
-        { id: "003", employerId: "0003", name: "Cool App", description: "A digital platform for organizing and planning...", deadline: "06/3/2024" },
-        { id: "004", employerId: "0004", name: "E-commerce Platform", description: "A web application for online shopping...", deadline: "15/4/2024" },
-        { id: "005", employerId: "0005", name: "Fitness Tracker", description: "An app for tracking fitness activities...", deadline: "20/4/2024" },
-        { id: "006", employerId: "0006", name: "Inventory System", description: "A tool for managing stock levels...", deadline: "25/5/2024" },
-        { id: "007", employerId: "0007", name: "Social Media App", description: "A platform for connecting with friends...", deadline: "01/6/2024" },
-        { id: "008", employerId: "0008", name: "HR Management System", description: "A system for managing employee data...", deadline: "10/6/2024" },
-    ];
+    // Fetch tasks from the API
+    const fetchTasks = async () => {
+        try {
+            const response = await axios.get('http://localhost:8800/api/admin/tasks');
+            setTasks(response.data);
+        } catch (error) {
+            console.error('Error fetching tasks:', error);
+        }
+    };
+
+    // Delete a task
+    const deleteTask = async (taskId) => {
+        try {
+            await axios.delete(`http://localhost:8800/api/admin/tasks/${taskId}`);
+            // Remove the task from the state
+            setTasks(tasks.filter(task => task.TaskID !== taskId));
+            alert('Task deleted successfully.');
+        } catch (error) {
+            console.error('Error deleting task:', error);
+            alert('Failed to delete task.');
+        }
+    };
+
+    useEffect(() => {
+        fetchTasks();
+    }, []);
 
     return (
         <div>
@@ -55,23 +73,25 @@ const AdminManageTask = () => {
                             <thead>
                                 <tr>
                                     <th>Task ID</th>
-                                    <th>Employer ID</th>
+                                    <th>Employee ID</th>
                                     <th>Task Name</th>
+                                    <th>Budget Info</th>
                                     <th>Description</th>
                                     <th>Deadline</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {sampleTasks.map((task) => (
-                                    <tr key={task.id}>
-                                        <td>{task.id}</td>
-                                        <td>{task.employerId}</td>
-                                        <td>{task.name}</td>
-                                        <td>{task.description}</td>
-                                        <td>{task.deadline}</td>
+                                {tasks.map((task) => (
+                                    <tr key={task.TaskID}>
+                                        <td>{task.TaskID}</td>
+                                        <td>{task.EmployeeID}</td>
+                                        <td>{task.TaskName}</td>
+                                        <td>{task.BudgetInfo}</td>
+                                        <td>{task.Description}</td>
+                                        <td>{task.Deadline}</td>
                                         <td>
-                                            <button className="delete-btn">Delete</button>
+                                            <button className="delete-btn" onClick={() => deleteTask(task.TaskID)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))}

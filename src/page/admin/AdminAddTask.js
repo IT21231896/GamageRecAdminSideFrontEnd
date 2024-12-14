@@ -12,84 +12,117 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const AdminAddTask = () => {
     const [sidebarVisible, setSidebarVisible] = useState(false);
+    const [taskData, setTaskData] = useState({
+        EmployeeID: '',
+        TaskName: '',
+        BudgetInfo: '',
+        Description: '',
+        Deadline: '',
+    });
+
+    const navigate = useNavigate();
+
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
-      };
-      const navigate = useNavigate();
+    };
 
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setTaskData({ ...taskData, [name]: value });
+    };
 
-  return (
-    <div>
-        <Navbar />
-        
-        <div className="main-tasks-container"> 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('http://localhost:8800/api/admin/add-task', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(taskData),
+            });
+            const result = await response.json();
+            if (response.ok) {
+                alert('Task added successfully!');
+                navigate('/admin-manage-task');
+            } else {
+                alert(result.message || 'Failed to add task.');
+            }
+        } catch (error) {
+            console.error('Error adding task:', error);
+            alert('Something went wrong.');
+        }
+    };
 
-            <nav className="breadcrumb" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a class="text-decoration-none" href="/admin-Dashboard">Home</a></li>
-                        <li class="breadcrumb-item"><a class="text-decoration-none" href="/admin-manage-task">Manage Tasks</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Add Task</li>
+    return (
+        <div>
+            <Navbar />
+
+            <div className="main-tasks-container">
+                <nav className="breadcrumb" aria-label="breadcrumb">
+                    <ol className="breadcrumb">
+                        <li className="breadcrumb-item"><a className="text-decoration-none" href="/admin-Dashboard">Home</a></li>
+                        <li className="breadcrumb-item"><a className="text-decoration-none" href="/admin-manage-task">Manage Tasks</a></li>
+                        <li className="breadcrumb-item active" aria-current="page">Add Task</li>
                     </ol>
-            </nav>
+                </nav>
 
+                <div className="head">
+                    <h1 className="text-center">Add Tasks</h1>
+                </div>
 
-            <div className='head'>
-                <h1 class="text-center">Add Tasks</h1>
-            </div>
+                <div className="back-button-area">
+                    <div className="but-inside">
+                        <button className="btn back-btn my-3" onClick={() => navigate('/admin-manage-task')}>
+                            <span className="bi bi-arrow-left m-3"> Back </span>
+                        </button>
+                    </div>
+                </div>
 
-            <div className='back-button-area'>
-                <div className='but-inside'>
-                    <button class="btn back-btn my-3" onClick={() => navigate('/admin-manage-task')}>
-                     <t class="bi bi-arrow-left m-3"> Back </t> 
-                    </button>
+                <div className="add-task-container">
+                    <div className="content">
+                        <form className="task-form" onSubmit={handleSubmit}>
+                            <label>
+                                <input type="text" name="EmployeeID" placeholder="Employee ID" value={taskData.EmployeeID} onChange={handleInputChange} required />
+                            </label>
+                            <label>
+                                <input type="text" name="TaskName" placeholder="Task Title" value={taskData.TaskName} onChange={handleInputChange} required />
+                            </label>
+                            <label>
+                                <input
+                                    type="text"
+                                    name="Deadline"
+                                    placeholder="Deadline"
+                                    onFocus={(e) => (e.target.type = 'date')}
+                                    onBlur={(e) => (e.target.type = 'text')}
+                                    value={taskData.Deadline}
+                                    onChange={handleInputChange}
+                                    required
+                                />
+                            </label>
+                            <label>
+                                <input type="text" name="BudgetInfo" placeholder="Budgetary Information" value={taskData.BudgetInfo} onChange={handleInputChange} required />
+                            </label>
+                            <label>
+                                <textarea name="Description" placeholder="Task Description" value={taskData.Description} onChange={handleInputChange}></textarea>
+                            </label>
+                            <div className="back-button-area">
+                                <button type="submit" className="send-btn">Send</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
-            <div className="add-task-container">
-
-
-            <div className="content">
-                <form className="task-form">
-                <label>
-                    <input type="text" placeholder="Employee ID" />
-                </label>
-                <label>
-                    <input type="text" placeholder="Task Title" />
-                </label>
-                <label>
-                    <input
-                    type="text"
-                    placeholder="Deadline"
-                    onFocus={(e) => (e.target.type = 'date')}
-                    onBlur={(e) => (e.target.type = 'text')}
-                    />
-                </label>
-                <label>
-                    <input type="text" placeholder="Budgetary Information" />
-                </label>
-                <label>
-                    <textarea placeholder="Task Description"></textarea>
-                </label>
-                
-                    <div className='back-button-area'>
-                        <button type="submit" className="send-btn">Send</button>
-                    </div>
-                </form>
+            <button className="sidebar-toggle" onClick={toggleSidebar}>☰</button>
+            <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
+                <Sidebar sidebarVisible={sidebarVisible} />
+            </div>
+            <div className="container3">
+                <Footer />
             </div>
         </div>
-
-    
-        </div>
-
-        <button className="sidebar-toggle" onClick={toggleSidebar}>☰</button>
-        <div className={`flex-grow-1 d-flex ${sidebarVisible ? 'show-sidebar' : ''}`}>
-            <Sidebar sidebarVisible={sidebarVisible} />
-        </div>
-        <div class="container3">
-            <Footer />
-        </div>
-    </div>
-  );
+    );
 };
 
 export default AdminAddTask;
