@@ -20,6 +20,16 @@
   margin: 0 auto;
 }
 
+/*side bar in mobile view issues*/
+@media (max-width: 768px) {
+  .show-sidebar .sidebar {
+    left: -250px; /* Adjust this value based on the width of your sidebar */
+    transition: left 0.3s ease-in-out; /* Smooth transition when hiding */
+  }
+}
+
+
+
 @media (max-width: 768px) {
 .card {
     background-color: #C5C2C244 !important;
