@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/templetes/Navbar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Footer from '../../components/PagesFooter';
+import Footer from '../../components/templetes/Footer';
+
 import Sidebar from '../../components/templetes/ESideBar';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -143,7 +144,9 @@ function EmployeeTaskProg() {
         </div>
 
       </div>
-      <Footer />
+      <div className="container3">
+                <Footer />
+            </div>
     </div>
   );
 }

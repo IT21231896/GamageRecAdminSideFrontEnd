@@ -7,7 +7,7 @@ import '../../css/employee/EmployeeReceivedTask.css';
 
 import Navbar from '../../components/templetes/Navbar';
 import Footer from '../../components/templetes/Footer';
-import Sidebar from '../../components/templetes/SideBar';
+import Sidebar from '../../components/templetes/ESideBar';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
