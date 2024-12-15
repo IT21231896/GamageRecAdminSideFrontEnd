@@ -23,7 +23,7 @@ const AdminManageTask = () => {
     // Fetch tasks from the API
     const fetchTasks = async () => {
         try {
-            const response = await axios.get('http://localhost:8800/api/admin/tasks');
+            const response = await axios.get('http://localhost:8800/admin/task/tasks');
             setTasks(response.data);
         } catch (error) {
             console.error('Error fetching tasks:', error);
@@ -33,7 +33,7 @@ const AdminManageTask = () => {
     // Delete a task
     const deleteTask = async (taskId) => {
         try {
-            await axios.delete(`http://localhost:8800/api/admin/tasks/${taskId}`);
+            await axios.delete(`http://localhost:8800/admin/task/tasks/${taskId}`);
             // Remove the task from the state
             setTasks(tasks.filter(task => task.TaskID !== taskId));
             alert('Task deleted successfully.');
@@ -65,7 +65,7 @@ const AdminManageTask = () => {
 
                     <header className="tasks-header">
                         <button className="add-task-btn" onClick={() => navigate('/admin-add-task')}>Add Task</button>
-                        <button className="progress-btn" onClick={() => navigate('#')}>Received Progress</button>
+                        <button className="progress-btn" onClick={() => navigate('/admin-recived-task')}>Received Progress</button>
                     </header>
 
                     <div className="tasks-table-container">

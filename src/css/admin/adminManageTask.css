@@ -30,14 +30,6 @@
   margin: 20px;
 }
 
-@media (min-width: 1024px) {
-  /*footer*/
-  .container3 {
-  width: calc(100% - 230px); /* Adjust width to match sidebar alignment */
-  margin-left: auto;
-  right: 0;
-}
-}
 
 .breadcrumb {
   margin-top: 20px; 

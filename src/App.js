@@ -6,6 +6,7 @@ import AdminDashboard from './page/admin/adminDashboardPage';
 import EmployeeDashboard from './page/employee/employeeDashboard';
 import AdminManageTask from './page/admin/adminManageTask';
 import AdminAddTask from './page/admin/AdminAddTask';
+import AdminReceivedTask from './page/admin/AdminReceivedTask';
 function App() {
   return (
     <Router>
@@ -19,6 +20,7 @@ function App() {
 
         <Route path="/admin-manage-task" element={<AdminManageTask/>}/>
         <Route path="/admin-add-task" element={<AdminAddTask/>}/>
+        <Route path="/admin-recived-task" element={<AdminReceivedTask/>}/>
        
 
         {/* Employee-Side Routes */}
