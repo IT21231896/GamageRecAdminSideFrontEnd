@@ -8,6 +8,7 @@ import AdminManageTask from './page/admin/adminManageTask';
 import AdminAddTask from './page/admin/AdminAddTask';
 import AdminReceivedTask from './page/admin/AdminReceivedTask';
 import EmployeeTaskProg from './page/employee/employeeTaskProg';
+import EmployeeReceivedTask from './page/employee/EmployeeReceivedTask';
 function App() {
   return (
     <Router>
@@ -27,6 +28,7 @@ function App() {
         {/* Employee-Side Routes */}
         <Route path="/employee-dashboard" element={<EmployeeDashboard/>}/>
         <Route path="/employee-progress-task" element={<EmployeeTaskProg/>}/>
+        <Route path="/employee-recived-task" element={<EmployeeReceivedTask/>}/>
         
 
       </Routes>

@@ -91,6 +91,7 @@
 }
 
 .tasks-table th {
+  width: 10px;
   background-color: #d2d2d2;
   color: rgb(9, 0, 0);
 }

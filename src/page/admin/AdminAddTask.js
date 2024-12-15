@@ -86,7 +86,7 @@ const AdminAddTask = () => {
                                 <input type="text" name="EmployeeID" placeholder="Employee ID" value={taskData.EmployeeID} onChange={handleInputChange} required />
                             </label>
                             <label>
-                                <input type="text" name="TaskName" placeholder="Task Title" value={taskData.TaskName} onChange={handleInputChange} required />
+                                <input type="text" name="TaskName" placeholder="Task Name" value={taskData.TaskName} onChange={handleInputChange} required />
                             </label>
                             <label>
                                 <input
