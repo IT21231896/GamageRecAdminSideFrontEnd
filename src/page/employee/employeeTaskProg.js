@@ -68,18 +68,16 @@ function EmployeeTaskProg() {
         <Sidebar sidebarVisible={sidebarVisible} />
         
         <div className='main-content-wrap-employee-task'>
-        <div className="container mb-4 d-none d-md-flex breadcrumb-wrap">
-              <nav aria-label="breadcrumb">
-                <ol className="breadcrumb">
-                  <li className="breadcrumb-item">
-                    <a href="/employee-dashboard">Home</a>
-                  </li>
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Add Tasks
-                  </li>
-                </ol>
-              </nav>
-            </div>
+
+          <div className='progcrums'>
+          <nav className="breadcrumb" aria-label="breadcrumb">
+            <ol className="breadcrumb">
+                        <li className="breadcrumb-item"><a className="text-decoration-none" href="/admin-Dashboard">Home</a></li>
+                        <li className="breadcrumb-item active" aria-current="page">Send Tasks Progress</li>
+            </ol>
+          </nav>
+          </div>
+
             
         <div className="main-content flex-grow-1 align-items-center justify-content-center">
         <div className="centered-div">
