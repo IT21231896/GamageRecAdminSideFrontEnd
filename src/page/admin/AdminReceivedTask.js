@@ -54,7 +54,7 @@ export default function AdminReceivedTask() {
       </div>
       <div className="container2">
         <div>
-          <h1 className="text-center">Received Task</h1>
+          <h1 className="text-center">Received Task Progress</h1>
         </div>
         <div>
           <button className="btn btn-primary my-3" onClick={() => navigate('/admin-manage-task')}>

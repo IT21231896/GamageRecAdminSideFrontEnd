@@ -49,7 +49,7 @@ const EmployeeManageTask = () => {
 
                 <div className="tasks-container">
                     <div className='headManage'>
-                        <h1 className="text-center">Tasks</h1>
+                        <h1 className="text-center">Manage Tasks</h1>
                     </div>
 
                     <header className="tasks-header">
