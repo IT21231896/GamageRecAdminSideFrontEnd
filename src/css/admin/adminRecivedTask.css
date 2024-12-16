@@ -81,18 +81,6 @@ h1 {
   position: absolute;
  
 }
-.sidebar-toggle {
-  position:fixed; /* Position it relative to its nearest positioned ancestor */
-  top: 10px; /* Adjust as needed to place it above the nav bar */
-  right: 10px; /* Align it to the right edge */
-  z-index: 1050; /* Ensure it appears above other elements */
- margin-left: 80%;
-  color: white; /* Optional: Set text/icon color */
-  border: none; /* Remove default button border */
-  border-radius: 5px; /* Optional: Add rounded corners */
-  padding: 10px 15px; /* Adjust button size */
-  cursor: pointer; /* Change cursor to pointer on hover */
-}
 
 
 
