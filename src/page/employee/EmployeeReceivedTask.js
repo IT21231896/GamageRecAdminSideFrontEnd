@@ -1,11 +1,8 @@
-//employee recived tasks - in hear this ui shows the perti=ucler logined employees's task that sended by the admin to perticuler that logged employees
-
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import '../../css/employee/EmployeeReceivedTask.css';
-
 
 import Navbar from '../../components/templetes/Navbar';
 import Footer from '../../components/templetes/Footer';
@@ -26,17 +23,22 @@ const EmployeeReceivedTask = () => {
     // Fetch tasks from the API
     const fetchTasks = async () => {
         try {
-            const response = await axios.get('http://localhost:8800/admin/task/tasks'); //chenge this to propper employee routes
+            const response = await axios.get('http://localhost:8800/admin/task/tasks'); // Change this to the proper employee route
             setTasks(response.data);
         } catch (error) {
             console.error('Error fetching tasks:', error);
         }
     };
 
-
     useEffect(() => {
         fetchTasks();
     }, []);
+
+    // Function to format the deadline
+    const formatDate = (datetime) => {
+        if (!datetime) return '';
+        return new Date(datetime).toISOString().split('T')[0];
+    };
 
     return (
         <div>
@@ -67,7 +69,6 @@ const EmployeeReceivedTask = () => {
                             <thead>
                                 <tr>
                                     <th>Task ID</th>
-                                    <th>Admin ID</th>
                                     <th>Task Name</th>
                                     <th>Budget Info</th>
                                     <th>Description</th>
@@ -78,12 +79,10 @@ const EmployeeReceivedTask = () => {
                                 {tasks.map((task) => (
                                     <tr key={task.TaskID}>
                                         <td>{task.TaskID}</td>
-                                        <td>{task.AdminID}</td>
                                         <td>{task.TaskName}</td>
                                         <td>{task.BudgetInfo}</td>
                                         <td>{task.Description}</td>
-                                        <td>{task.Deadline}</td>
-
+                                        <td>{formatDate(task.Deadline)}</td>
                                     </tr>
                                 ))}
                             </tbody>

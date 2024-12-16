@@ -1,4 +1,4 @@
-//employee manage tasks - in hear this ui shows the all the task that added by the admin to employees
+//employee manage tasks - in hear this ui shows the all the task that added by the admin to all employees
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -24,7 +24,7 @@ const EmployeeManageTask = () => {
     // Fetch tasks from the API
     const fetchTasks = async () => {
         try {
-            const response = await axios.get('http://localhost:8800/admin/task/tasks'); //chenge this to proper employee routes
+            const response = await axios.get('http://localhost:8800/employee/task/tasks'); //chenge this to proper employee routes
             setTasks(response.data);
         } catch (error) {
             console.error('Error fetching tasks:', error);
@@ -77,7 +77,7 @@ const EmployeeManageTask = () => {
                                         <td>{task.TaskName}</td>
                                         <td>{task.BudgetInfo}</td>
                                         <td>{task.Description}</td>
-                                        <td>{task.Deadline}</td>
+                                        <td>{new Date(task.Deadline).toISOString().split('T')[0]}</td>
                 
                                     </tr>
                                 ))}

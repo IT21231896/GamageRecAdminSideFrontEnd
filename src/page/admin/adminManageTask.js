@@ -89,7 +89,7 @@ const AdminManageTask = () => {
                                         <td>{task.TaskName}</td>
                                         <td>{task.BudgetInfo}</td>
                                         <td>{task.Description}</td>
-                                        <td>{task.Deadline}</td>
+                                        <td>{new Date(task.Deadline).toISOString().split('T')[0]}</td>
                                         <td>
                                             <button className="delete-btn" onClick={() => deleteTask(task.TaskID)}>Delete</button>
                                         </td>
