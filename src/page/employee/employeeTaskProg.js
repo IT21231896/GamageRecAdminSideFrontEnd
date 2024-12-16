@@ -10,7 +10,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../../css/employee/ETP(apvgr).css';
 
 function EmployeeTaskProg() {
-  const [sidebarVisible, setSidebarVisible] = useState(true);
+  const [sidebarVisible, setSidebarVisible] = useState(false); // Default to hidden on mobile
   const [taskData, setTaskData] = useState({
     TaskName: '',
     EmployeeID: '6',
@@ -47,9 +47,6 @@ function EmployeeTaskProg() {
     try {
       const response = await fetch('http://localhost:8800/employee/task/task-progress', {
         method: 'POST',
-        headers: {
-          // No `Content-Type` header here because `fetch` will automatically set it for `FormData`
-        },
         body: formData,
       });
 
@@ -75,7 +72,7 @@ function EmployeeTaskProg() {
     <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
       <Navbar />
 
-      <button className="btn btn-primary sidebar-toggle" onClick={toggleSidebar}>
+      <button className="sidebar-toggle" onClick={toggleSidebar}>
         ☰
       </button>
 
