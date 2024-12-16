@@ -109,23 +109,7 @@
     border-radius: 4px;
     cursor: pointer;
   }
-  
-  /* Sidebar toggle button */
-  .sidebar-toggle {
-    display: none; /* Hidden by default for larger screens */
-    z-index: 9999;
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 10;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    background-color: #0d6efd;
-    color: white;
-    cursor: pointer;
-  }
-  
+
   /* Responsive Design */
   @media (max-width: 1024px) {
     .manage-tasks-container {
@@ -185,28 +169,8 @@
       display: none;
     }
   
-    .sidebar-toggle {
-      display: block; /* Show the toggle button on mobile */
-    }
-  
-    /* Sidebar toggle button */
-    .sidebar-toggle {
-      z-index: 9999 !important;
-      position: fixed;
-      top: 15px;
-      left: 85%;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 4px;
-      background-color: #346269;
-      color: white;
-      cursor: pointer;
-    }
-  
-    .sidebar-toggle:hover {
-      background-color: #1b5a63; /* Darker shade for hover effect */
-      transition: background-color 0.3s ease; /* Smooth transition on hover */
-    }
+
+
   
     .sidebar { /*for side bar color when it opened in mobile view*/
       background-color: hsla(168, 7%, 73%, 0.907);

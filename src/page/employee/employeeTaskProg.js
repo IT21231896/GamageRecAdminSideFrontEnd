@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/templetes/Navbar';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Footer from '../../components/templetes/Footer';
 import Sidebar from '../../components/templetes/ESideBar';
 
@@ -12,49 +11,64 @@ import '../../css/employee/ETP(apvgr).css';
 
 function EmployeeTaskProg() {
   const [sidebarVisible, setSidebarVisible] = useState(true);
-  const [taskName, setTaskName] = useState('');
-  const [taskID, setTaskID] = useState('');
-  const [taskDescription, setTaskDescription] = useState('');
-  const [file, setFile] = useState(null);
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('taskName', taskName);
-    formData.append('taskID', taskID);
-    formData.append('taskDescription', taskDescription);
-    if (file) {
-      formData.append('file', file);
-    }
-
-    try {
-      const response = await fetch('http://localhost:5000/api/tasks', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (response.ok) {
-        alert('Task Progress Updated Successfully!');
-        setTaskName('');
-        setTaskID('');
-        setTaskDescription('');
-        setFile(null);
-      } else {
-        alert('Failed to Update the Task Progress.');
-      }
-    } catch (error) {
-      console.error('Error Updating the Task:', error);
-      alert('An Error Occurred while Updating the Task Progress.');
-    }
-  };
+  const [taskData, setTaskData] = useState({
+    TaskName: '',
+    EmployeeID: '6',
+    TaskID: '',
+    TaskDescription: '',
+    Attachment: null,
+  });
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
   };
 
-  const handleGoBack = () => {
-    Route(-1);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setTaskData({ ...taskData, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+    setTaskData({ ...taskData, Attachment: e.target.files[0] });
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('TaskName', taskData.TaskName);
+    formData.append('TaskID', taskData.TaskID);
+    formData.append('TaskDescription', taskData.TaskDescription);
+    if (taskData.Attachment) {
+      formData.append('Attachment', taskData.Attachment);
+    }
+    formData.append('EmployeeID', taskData.EmployeeID);
+
+    try {
+      const response = await fetch('http://localhost:8800/employee/task/task-progress', {
+        method: 'POST',
+        headers: {
+          // No `Content-Type` header here because `fetch` will automatically set it for `FormData`
+        },
+        body: formData,
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert('Task Progress Updated Successfully!');
+        setTaskData({
+          TaskName: '',
+          TaskID: '',
+          TaskDescription: '',
+          Attachment: null,
+        });
+      } else {
+        alert(result.message || 'Failed to Update the Task Progress.');
+      }
+    } catch (error) {
+      console.error('Error Updating the Task:', error);
+      alert('An Error Occurred while Updating the Task Progress.');
+    }
   };
 
   return (
@@ -107,39 +121,39 @@ function EmployeeTaskProg() {
                 <div className="mb-3">
                   <input
                     type="text"
-                    id="taskName"
+                    name="TaskName"
                     className="form-control"
                     placeholder="Task Name"
-                    value={taskName}
-                    onChange={(e) => setTaskName(e.target.value)}
+                    value={taskData.TaskName}
+                    onChange={handleInputChange}
                   />
                 </div>
                 <div className="mb-3">
                   <input
                     type="text"
-                    id="taskID"
+                    name="TaskID"
                     className="form-control"
                     placeholder="Task ID"
-                    value={taskID}
-                    onChange={(e) => setTaskID(e.target.value)}
+                    value={taskData.TaskID}
+                    onChange={handleInputChange}
                   />
                 </div>
                 <div className="mb-0">
                   <textarea
-                    id="taskDescription"
+                    name="TaskDescription"
                     className="form-control"
                     rows="8"
                     placeholder="Task Description"
-                    value={taskDescription}
-                    onChange={(e) => setTaskDescription(e.target.value)}
+                    value={taskData.TaskDescription}
+                    onChange={handleInputChange}
                   ></textarea>
                 </div>
                 <div className="mb-3">
                   <input
                     type="file"
-                    id="fileUpload"
+                    name="Attachment"
                     className="form-control"
-                    onChange={(e) => setFile(e.target.files[0])}
+                    onChange={handleFileChange}
                   />
                 </div>
                 <div className="d-flex justify-content-center">
